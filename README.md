@@ -1,4 +1,4 @@
-# Various voiced consonant mark conversion
+# Various Voiced Consonant Mark Conversion
 いろんな濁点変換
 
 # 対応言語
