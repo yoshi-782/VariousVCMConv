@@ -5,7 +5,7 @@ using System.Text;
 string DakutenConv(string arg){
     return string.Join("", Enumerable.ToList<char>(arg).Select((c) =>{
         var normalize = c.ToString().Normalize(NormalizationForm.FormD);
-        return normalize.Length > 1 ? normalize : $"{normalize}゛";
+        return normalize.Length > 1 ? $"{normalize.Substring(0, 1)}゛" : $"{normalize}゛";
     }).ToArray());
 }
 
@@ -13,7 +13,7 @@ string EasyDakutenConv(string arg){
     var result = "";
     foreach(char c in arg){
         var normalize = c.ToString().Normalize(NormalizationForm.FormD);
-        result += normalize.Length == 1 ? $"{normalize}゛" : normalize;
+        result += normalize.Length > 1 ? $"{normalize.Substring(0, 1)}゛" : $"{normalize}゛";
     }
     return result;
 }
