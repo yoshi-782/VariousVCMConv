@@ -6,6 +6,7 @@
 * C# (Windowsしか動作しないかもしれない)
 * JavaScript
 * Python
+* Dart
 
 ### 仕組み
 文字列を1文字づつノーマライズ(Unicode正規化(NFD))し、1文字だった場合は、濁点を連結し、
