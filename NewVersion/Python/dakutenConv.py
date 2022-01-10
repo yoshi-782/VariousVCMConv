@@ -3,7 +3,7 @@ import unicodedata
 def dakuten(text: str) -> str:
     def conv(a: str) -> str:
         normalize = unicodedata.normalize("NFD", a)
-        return f"{normalize[:1]}゛" if len(normalize) > 1 else f"{normalize}゛"
+        return f"{normalize[:1]}゛"
     
     return "".join(map(lambda a: conv(a), list(text)))
 
