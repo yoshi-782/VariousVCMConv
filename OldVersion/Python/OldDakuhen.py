@@ -1,49 +1,27 @@
+import json
+import sys
+
+marks: dict = None
+
 def main():
-    print(dakuten("だくてんテスト"))
+    loadMark()
+    print(dakuten(sys.argv[1]))
 
-def dakuten(value):
-    result = ""
-    b = True
-    lst = ["ぁ", "ぃ", "ぅ", "ぇ", "ぉ",
-            "ヵ", "ゃ", "ゅ", "ょ",
-            "ァ", "ィ", "ゥ", "ェ", "ォ",
-            "ャ", "ュ", "ョ", "ー", "～",
-            "！", "？", "・", "、", "。","\r","\n"," ","　"
-    ]
+def loadMark() -> dict:
+    json_open = open("mark.json", "r", encoding="utf-8")
+    global marks
+    marks = json.load(json_open)
 
-    daku = [ "が", "ぎ", "ぐ", "げ", "ご",
-            "ざ", "じ", "ず", "ぜ", "ぞ",
-            "だ", "ぢ", "づ", "で", "ど",
-            "ば", "び", "ぶ", "べ", "ぼ",
-            "ガ", "ギ", "グ", "ゲ", "ゴ",
-            "ザ", "ジ", "ズ", "ゼ", "ゾ",
-            "ダ", "ヂ", "ヅ", "デ", "ド",
-            "バ", "ビ", "ブ", "ベ", "ボ"
-    ]
+def dakuten(value: str) -> str:
+    def conv(ch: str) -> str:
+        if ch in marks["skip"]:
+            return ch
+        elif ch in marks["dakuten"]:
+            return f"{marks['nomal'][marks['dakuten'].index(ch)]}゛"
+        else:
+            return f"{ch}゛"
 
-    dnasi = ["か", "き", "く", "け", "こ",
-            "さ", "し", "す", "せ", "そ",
-            "た", "ち", "つ", "て", "と",
-            "は", "ひ", "ふ", "へ", "ほ",
-            "カ", "キ", "ク", "ケ", "コ",
-            "サ", "シ", "ス", "セ", "ソ",
-            "タ", "チ", "ツ", "テ", "ト",
-            "ハ", "ヒ", "フ", "ヘ", "ホ"
-    ]
-
-    for ch in value:
-        b = True
-        for lsval in lst:
-            if ch == lsval:
-                result += ch
-                b = False
-        for i in range(len(daku)):
-            if ch == daku[i]:
-                ch = dnasi[i]
-        if b :
-            result += ch + "゛"
-    
-    return result
+    return "".join([conv(ch) for ch in value])
 
 if __name__ == "__main__":
     main()
